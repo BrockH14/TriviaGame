@@ -8,12 +8,14 @@ var correctAns = [];
 var inter;
 
 var runtime = false;
-var timer = 10;
+var timer = 30;
 
 var wins
 var losses = 0;
 
 var guess;
+
+var outOfTime = false;
 //set up 4 arrays to hold the answers 
 //set up one array to hold the correct answers
 //window.onload = function() {
@@ -26,34 +28,41 @@ $("#start").on("click", function(){
 //per question
 
 function start() {
-
     if (!runtime) {
       inter = setInterval(count, 1000);
       clockRunning = true;
       document.getElementById("start").style.visibility = "hidden";
     }
   }
-
-
   function count() {
       if (timer >= 1){
         timer--;
         $("#Timer").text(timer);
-      } else if (timer === 0){
-          losses++;
-          setTimeout(restart, 5000);
-          $("#Losses").text(losses);
-          timer = 15;
-          document.getElementById("Timer").style.visibility = "hidden";
-
+      } 
+      else if (timer === 0){
+        losses++;
+        setTimeout(restart, 5000);
+        $("#Losses").text(losses);
+        timer = 35;
+        document.getElementById("Timer").style.visibility = "hidden";
+        outOfTime = true;
+        updateDisplay();
       }
   }
 function restart(){
     clockRunning = false;
-    timer = 10;
+    timer = 30;
     console.log(clockRunning);
     document.getElementById("Timer").style.visibility = "visible";
+    $("#Question").text("");
 }
+
+function updateDisplay(){
+    if (outOfTime === true){
+        $("#Question").text("Time ran out!");
+    }
+}
+
 
 
 start();
