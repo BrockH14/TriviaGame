@@ -1,73 +1,59 @@
 // variables 
-var answersA = [
-    "5",
-    "2",
-    "3",
-    "4"
-];
-var answersB = [ 
-    "1",
-    "5",
-    "3",
-    "4"
-];
-
-var answersC = [
-    "1",
-    "2",
-    "5",
-    "4"
-];
-var answersD = [
-    "1",
-    "2",
-    "5",
-    "4"
-];
-var correctAns = [
-    "5",
-    "2",
-    "3",
-    "4"
-];
-
-var inter;
-var userGuess 
-var runtime = false;
-var timer = 30;
-
-var wins = 0;
-var losses = 0;
-var timeOut = 0;
-
-var guess = true;
-
-var outOfTime = false;
-var correct = 0;
 //set up 4 arrays to hold the answers 
-//set up one array to hold the correct answers
-//window.onload = function() {
-   // $("#start").on("click", start);
- // };
-//on click start function 
-$("#start").on("click", function(){
-//create timer 
+var answersA;
+var answersB;
+var answersC;
+var answersD;
+var correctAns;
+var inter;
+var userGuess;
+var runtime;
+var timer;
+var wins;
+var losses;
+var timeOut;
+var guess;
+var outOfTime;
+var correct;
+var btns;
+var questNum;
 
-//per question
 
-function start() {
+window.onload = function() {
+    $(".answer1").text("");$(".answer2").text("");$(".answer3").text("");$(".answer4").text("");
+    
+
+$("#start").on("click", function(){//on click start function 
+    answersA = ["Yellow", "Pink", "Blue", "Purple"];
+    answersB = ["Dory", "Pumba", "Buzz", "Andy"];
+    answersC = ["3", "6", "2", "1"];
+    answersD = ["Read books", "Go to the beach", "Clean the house", "Talk to Gaston"];
+    correctAns = ["Blue", "Andy", "3", "Read books"];//set up one array to hold the correct answers
+    inter = null; 
+    userGuess = null;
+    runtime = false;
+    timer = 30;
+    wins = 0;
+    losses = 0;
+    timeOut = 0; 
+    guess = true; 
+    outOfTime = false; 
+    correct = 0; 
+    btns =null; 
+    questNum = 0; 
+function start() {//create timer 
     if (!runtime) {
       inter = setInterval(count, 1000);
       setInterval(testwin, 1000);
       runtime = true;
-      document.getElementById("start").style.visibility = "hidden";
+      $("#start").text("");
     }
-
-    $(".answer1").text(answersA[0]);
-    $(".answer2").text(answersA[1]);
-    $(".answer3").text(answersA[2]);
-    $(".answer4").text(answersA[3]);
-  }
+    if (questNum === 0){
+        btns = $("ul").append("<ol class='one'><h3><button class='answer1 an'></button></h3></ol>", "<ol class='one'><h3><button class='answer2 an'></button></h3></ol>", "<ol class='one'><h3><button class='answer3 an'></button></h3></ol>", "<ol class='one'><h3><button class='answer4 an'></button></h3></ol>")
+        $(".answer1").text(answersA[0]);$(".answer2").text(answersA[1]);$(".answer3").text(answersA[2]);$(".answer4").text(answersA[3]);
+        $("#Question").text("Question 1: What color was Cinderella's ball gown?");
+    }
+}
   function count() {
       if (timer >= 1){
         timer--;
@@ -76,113 +62,137 @@ function start() {
       else if (timer === 0){
         timeOut++;
         timer = -1;
+        questNum++;
         setTimeout(restart, 5000);
         $("#Unanswered").text(timeOut);
         $("#Timer").text("");
         document.getElementById("Timer").style.visibility = "hidden";
         outOfTime = true;
         updateDisplay();
+        $(".an").remove();
       }
       else if (timer === -1) {
         $("#Timer").text("");
       }
   }
-
 function testwin(){
+    $(".answer1").on("click", function(){
+        $(".an").remove();
+        if (questNum === 0){userGuess = answersA[0]}
+        else if (questNum === 1){userGuess = answersB[0]}
+        else if (questNum === 2){userGuess = answersC[0]}
+        else if (questNum === 3){userGuess = answersD[0]}
+        testanswer();
+    });
+    $(".answer2").on("click", function(){
+        $(".an").remove();
+        if (questNum === 0){userGuess = answersA[1]}
+        else if (questNum === 1){userGuess = answersB[1]} 
+        else if (questNum === 2){userGuess = answersC[1]}
+        else if (questNum === 3){userGuess = answersD[1]}
+        testanswer();
+    });
+    $(".answer3").on("click", function(){
+        $(".an").remove();
+        if (questNum === 0){userGuess = answersA[2]}
+        else if (questNum === 1){userGuess = answersB[2]}
+        else if (questNum === 2){userGuess = answersC[2]}
+        else if (questNum === 3){userGuess = answersD[2]}
+        testanswer();
+    });
+    $(".answer4").on("click", function(){
+        $(".an").remove();
+        if (questNum === 0){userGuess = answersA[3]}
+        else if (questNum === 1){userGuess = answersB[3]}
+        else if (questNum === 2){userGuess = answersC[3]}
+        else if (questNum === 3){userGuess = answersD[3]}
+        testanswer();
+    });
     if (correct === 1){
         wins++;
         timer = -1;
         guess = 1;
+        questNum++;
         updateDisplay();
-        setTimeout(restart, 5000);
+        setTimeout(restart, 4000);
         clearInterval(count);
         $("#Timer").text("");
-        $("#Wins").text(wins);
         correct = 0;
     }
     if (correct === 2) {
         guess = 2;
         timer = -1;
         losses++;
+        questNum++;
         updateDisplay();
-        setTimeout(restart, 5000);
+        setTimeout(restart, 4000);
         clearInterval(count);
         $("#Timer").text("");
-        $("#Losses").text(losses);
         correct = 0;
     }
 }
-
+//display the correct answer 
 function restart(){
     timer = 30;
     document.getElementById("Timer").style.visibility = "visible";
-    $("#Question").text("");
+    $("#Promp").text("");
+    $("#Correct").text("");
     userGuess = "";
     guess = 0;
     correct = 0;
-    
+    if (questNum === 1){
+        btns = $("ul").append("<ol class='two'><h3><button class='answer1 an'></button></h3></ol>", "<ol class='two'><h3><button class='answer2 an'></button></h3></ol>", "<ol class='two'><h3><button class='answer3 an'></button></h3></ol>", "<ol class='two'><h3><button class='answer4 an'></button></h3></ol>")
+        $(".answer1").text(answersB[0]); $(".answer2").text(answersB[1]); $(".answer3").text(answersB[2]); $(".answer4").text(answersB[3]);
+        $("#Question").text("Question 2: What does the bottom of Woody's boot say?");
+        $(".one").remove();
+    }
+    else if (questNum === 2){
+        btns = $("ul").append("<ol class='three'><h3><button class='answer1 an'></button></h3></ol>", "<ol class='three'><h3><button class='answer2 an'></button></h3></ol>", "<ol class='three'><h3><button class='answer3 an'></button></h3></ol>", "<ol class='three'><h3><button class='answer4 an'></button></h3></ol>")
+        $(".answer1").text(answersC[0]); $(".answer2").text(answersC[1]); $(".answer3").text(answersC[2]); $(".answer4").text(answersC[3]);
+        $("#Question").text("Question 3: How many fairy godmothers did Sleeping Beauty have?");
+        $(".two").remove();
+    }
+    else if (questNum === 3){
+        btns = $("ul").append("<ol class='four'><h3><button class='answer1 an'></button></h3></ol>", "<ol class='four'><h3><button class='answer2 an'></button></h3></ol>", "<ol class='four'><h3><button class='answer3 an'></button></h3></ol>", "<ol class='four'><h3><button class='answer4 an'></button></h3></ol>")
+        $(".answer1").text(answersD[0]); $(".answer2").text(answersD[1]); $(".answer3").text(answersD[2]); $(".answer4").text(answersD[3]);
+        $("#Question").text("Question 4: What is Belle's favorite thing to do?");
+        $(".three").remove();
+    }
+    else if (questNum >= 4){
+        btn = $("ul").append("<h1 class='restart'><button>Restart Game?</button></h1>", "<h4>Wins:</h4><span id='Wins'></span>", "<h4>Losses:</h4><span id='Losses'></span>", "<h4>Unanswered:</h4><span id='Unanswered'></span>")
+        clearInterval(inter);
+        $(".four").remove();
+        $("#Question").text("");
+        $("#Promp").text("");3
+        $("#Correct").text("");
+        updateDisplay()
+    }
 }
-
-function updateDisplay(){
-    if (outOfTime === true){
-        $("#Question").text("Time ran out!");
-    }
-    if (guess === 1){
-        $("#Question").text("Correct");
-    }
-    else if (guess === 2){
-        $("#Question").text("Incorrect");
-    }
-}
-
-function testanswer(){
-    if (userGuess === correctAns[0]){
-        correct = 1;
-        console.log(correct)
-    }
-    else {
-        correct = 2;
-        console.log(correct)
-    }
-}
-
-
-
-$(".an").on("click", function(){
-    //if statement to compare clicked to correct in answer array if correct 
-
-});
-
-$(".answer1").on("click", function(){
-    userGuess = answersA[0]
-    console.log(userGuess);
-    testanswer();
-});
-$(".answer2").on("click", function(){
-    userGuess = answersA[1]
-    testanswer();
-});
-$(".answer3").on("click", function(){
-    userGuess = answersA[2]
-    testanswer();
-});
-$(".answer4").on("click", function(){
-    userGuess = answersA[3]
-    testanswer();
-});
-start();
-
-
-    //write out the 4 answers 
-
-    //conditionals to see if they chose the right answer or the wrong answer]
 
 //display correct or incorrect or out of time
-//display the correct answer 
 //maybe add photo and sound??
+function updateDisplay(){
 
+    if (outOfTime === true){$("#Promp").text("Your Time ran out!");}
+    if (guess === 1){$("#Promp").text("Congratulations You Are Correct!!!");}
+    else if (guess === 2){$("#Promp").text("Sorry You Are Incorrect");}
+    if (questNum === 1){$("#Correct").text("The correct answer was : " + correctAns[0]);}
+    else if (questNum === 2){$("#Correct").text("The correct answer was : " + correctAns[1]);}
+    else if (questNum === 3){$("#Correct").text("The correct answer was : " + correctAns[2]);}
+    else if (questNum === 4){$("#Correct").text("The correct answer was : " + correctAns[3]);}
+}
+
+//conditionals to see if they chose the right answer or the wrong answer]
+function testanswer(){
+    if (userGuess === correctAns[0]){correct = 1;}
+    else if (userGuess === correctAns[1]){correct = 1;}
+    else if (userGuess === correctAns[2]){correct = 1;}
+    else if (userGuess === correctAns[3]){correct = 1;}
+    else {correct = 2;}
+}
+
+start();
 //go to the next question 
-
 
 //closing prompt 
 
@@ -192,6 +202,17 @@ start();
 
 //start over?
 
+setInterval(restartG, 1000)
+function restartG(){
+    if (questNum <= 4){
+        $("#Wins").text(wins);
+        $("#Losses").text(losses);
+        $("#Unanswered").text(timeOut);
+    }
+$(".restart").on("click", function(){
+    window.location.reload(false);
 });
+}
 
-
+});
+};
