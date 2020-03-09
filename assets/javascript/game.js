@@ -19,6 +19,10 @@ var btns;
 var questNum;
 var imgs;
 
+var belleSod = new Audio("assets/sound/Belle_Book.mp3");
+var cindeSod = new Audio("assets/sound/Bibbitty.mp3");
+var sleepSod = new Audio("assets/sound/GoodFairy.mp3");
+var woodySod = new Audio("assets/sound/Just_Andy.mp3");
 
 
 window.onload = function() {
@@ -116,7 +120,7 @@ function testwin(){
         guess = 1;
         questNum++;
         updateDisplay();
-        setTimeout(restart, 4000);
+        setTimeout(restart, 6000);
         clearInterval(count);
         $("#Timer").text("");
         correct = 0;
@@ -127,7 +131,7 @@ function testwin(){
         losses++;
         questNum++;
         updateDisplay();
-        setTimeout(restart, 4000);
+        setTimeout(restart, 6000);
         clearInterval(count);
         $("#Timer").text("");
         correct = 0;
@@ -184,15 +188,19 @@ function updateDisplay(){
     else if (guess === 2){$("#Promp").text("Sorry You Are Incorrect");}
     if (questNum === 1){$("#Correct").text("The correct answer was : " + correctAns[0]);
     $(".gbtn").append("<img src='assets/images/cinderella.jpg'>");
+    cindeSod.play();
 }
     else if (questNum === 2){$("#Correct").text("The correct answer was : " + correctAns[1]);
     $(".gbtn").append("<img src='assets/images/Woody.jpg'>");
+    woodySod.play();
 }
     else if (questNum === 3){$("#Correct").text("The correct answer was : " + correctAns[2]);
     $(".gbtn").append("<img src='assets/images/flora_fauna_and_merryweather.jpg'>");
+    sleepSod.play();
 }
     else if (questNum === 4){$("#Correct").text("The correct answer was : " + correctAns[3]);
     $(".gbtn").append("<img src='assets/images/belle.jpg'>");
+    belleSod.play();
 }
 }
 
