@@ -17,6 +17,8 @@ var outOfTime;
 var correct;
 var btns;
 var questNum;
+var imgs;
+
 
 
 window.onload = function() {
@@ -145,27 +147,31 @@ function restart(){
         $(".answer1").text(answersB[0]); $(".answer2").text(answersB[1]); $(".answer3").text(answersB[2]); $(".answer4").text(answersB[3]);
         $("#Question").text("Question 2: What does the bottom of Woody's boot say?");
         $(".one").remove();
+        $("img").remove();
     }
     else if (questNum === 2){
         btns = $("ul").append("<ol class='three'><h3><button class='answer1 an'></button></h3></ol>", "<ol class='three'><h3><button class='answer2 an'></button></h3></ol>", "<ol class='three'><h3><button class='answer3 an'></button></h3></ol>", "<ol class='three'><h3><button class='answer4 an'></button></h3></ol>")
         $(".answer1").text(answersC[0]); $(".answer2").text(answersC[1]); $(".answer3").text(answersC[2]); $(".answer4").text(answersC[3]);
         $("#Question").text("Question 3: How many fairy godmothers did Sleeping Beauty have?");
         $(".two").remove();
+        $("img").remove();
     }
     else if (questNum === 3){
         btns = $("ul").append("<ol class='four'><h3><button class='answer1 an'></button></h3></ol>", "<ol class='four'><h3><button class='answer2 an'></button></h3></ol>", "<ol class='four'><h3><button class='answer3 an'></button></h3></ol>", "<ol class='four'><h3><button class='answer4 an'></button></h3></ol>")
         $(".answer1").text(answersD[0]); $(".answer2").text(answersD[1]); $(".answer3").text(answersD[2]); $(".answer4").text(answersD[3]);
         $("#Question").text("Question 4: What is Belle's favorite thing to do?");
         $(".three").remove();
+        $("img").remove();
     }
     else if (questNum >= 4){
-        btn = $("ul").append("<h1 class='restart'><button>Restart Game?</button></h1>", "<h4>Wins:</h4><span id='Wins'></span>", "<h4>Losses:</h4><span id='Losses'></span>", "<h4>Unanswered:</h4><span id='Unanswered'></span>")
+        btn = $("ul").append("<h1 class='restart'><button>Restart Game?</button></h1>", "<h4>Correct: <span id='Wins'></span></h4>", "<h4>Incorrect: <span id='Losses'></span></h4>", "<h4>Unanswered: <span id='Unanswered'></span></h4>")
         clearInterval(inter);
         $(".four").remove();
         $("#Question").text("");
-        $("#Promp").text("");3
+        $("#Promp").text("");
         $("#Correct").text("");
         updateDisplay()
+        $("img").remove();
     }
 }
 
@@ -176,10 +182,18 @@ function updateDisplay(){
     if (outOfTime === true){$("#Promp").text("Your Time ran out!");}
     if (guess === 1){$("#Promp").text("Congratulations You Are Correct!!!");}
     else if (guess === 2){$("#Promp").text("Sorry You Are Incorrect");}
-    if (questNum === 1){$("#Correct").text("The correct answer was : " + correctAns[0]);}
-    else if (questNum === 2){$("#Correct").text("The correct answer was : " + correctAns[1]);}
-    else if (questNum === 3){$("#Correct").text("The correct answer was : " + correctAns[2]);}
-    else if (questNum === 4){$("#Correct").text("The correct answer was : " + correctAns[3]);}
+    if (questNum === 1){$("#Correct").text("The correct answer was : " + correctAns[0]);
+    $(".gbtn").append("<img src='assets/images/cinderella.jpg'>");
+}
+    else if (questNum === 2){$("#Correct").text("The correct answer was : " + correctAns[1]);
+    $(".gbtn").append("<img src='assets/images/Woody.jpg'>");
+}
+    else if (questNum === 3){$("#Correct").text("The correct answer was : " + correctAns[2]);
+    $(".gbtn").append("<img src='assets/images/flora_fauna_and_merryweather.jpg'>");
+}
+    else if (questNum === 4){$("#Correct").text("The correct answer was : " + correctAns[3]);
+    $(".gbtn").append("<img src='assets/images/belle.jpg'>");
+}
 }
 
 //conditionals to see if they chose the right answer or the wrong answer]
