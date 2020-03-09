@@ -44,6 +44,7 @@ html {
     font-size: 50px;
     color: #535300;
     background-color: rgb(217, 217, 255);
+    margin: 0 auto;
   }
   #currentWord {
     font-size: 35px;
@@ -53,6 +54,7 @@ html {
   .an {
     align-content: center;
     height: 50px;
+    margin: 0 auto;
   }
   img {
 width: 300px;
